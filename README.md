@@ -7,14 +7,9 @@ This repository is the home for all of your group's code and documentation durin
 
 ## Documentation of the system and group's work
 
-This README.md file is the root of your documentation. This file can be the only file you use for documentation, or your group can link other documentation files to it. All the files must be in the repository.
+For the final submission, all group documentation must be provided in a single PDF-file in the root directory of this repository. Do not add any documentation into the course_documentation folder, as that can be used by course personnel to add new content without causing merge issues.
 
-The documentation must be kept updated during the project.
-
-Groups are free to document as much, or as little as they want, but the amount and quality of the documents produced is directly reflected in the points received.
-
-### Format used in the documents
-This README.md is the Markdown format. [Documentation for GitLab Flavored Markdown (GFM)](https://docs.gitlab.com/ee/user/markdown.html). It is recommended that all documentation meant for the course personnel is written in Markdown, but other documentation files linked to this can be in PDF format, too. The documentation meant for group's own internal use can of course be in any format the group chooses, even if they are in the repository.
+You may use Markdown (.md) or any other documentation method to keep track of documentation during the project, as long as it can be accessed from the repository.
 
 ### Required documentation
 The documentation required includes the project plan, architectural description of the system, the technologies used, the progress of the group's work, as well as what the group's members learned during this project. Groups also must document where the components of their system are placed in the repository, and how the course personnel can deploy the group's system on their own computers when testing it.
