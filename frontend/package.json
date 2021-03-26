@@ -5,10 +5,9 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"serve": "vite preview",
+		"serve": "vite preview --port 8080",
 		"lint": "eslint src/ --ext .js,.jsx",
-		"lint:fix": "eslint src/ --fix --ext .js,.jsx",
-		"postinstall": "husky install"
+		"lint:fix": "eslint src/ --fix --ext .js,.jsx"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^5.15.3",
