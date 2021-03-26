@@ -1,0 +1,27 @@
+{
+	"extends": ["plugin:react/recommended", "plugin:import/errors", "plugin:import/warnings", "prettier"],
+	"plugins": ["react-hooks", "prettier"],
+	"parser": "babel-eslint",
+	"rules": {
+		"prettier/prettier": ["warn"],
+		"no-console": "error",
+		"no-alert": "error",
+		"linebreak-style": ["warn", "unix"],
+		"react/require-default-props": "error",
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+		"react/no-unescaped-entities": "off",
+		"import/default": "off",
+		"react/prop-types": "off"
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		},
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx"]
+			}
+		}
+	}
+}
