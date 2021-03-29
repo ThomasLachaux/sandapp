@@ -8,7 +8,7 @@
 
 # TIE-23526 Web Architectures - Group project work repository
 
-## Convention used
+## Conventions used
 
 ### Commit convention
 
@@ -25,6 +25,10 @@ For example `feat-front/admin-pannel`
 Hello WebArchers!
 
 This repository is the home for all of your group's code and documentation during this project.
+
+## Merge requests
+
+All features passes through a branch and nobody pushes directly on master. Any merge request needs the approval of at least one person. When a merge request is ready, it must be squashed before to improve git history readability. More info on https://softwareengineering.stackexchange.com/questions/263164/why-squash-git-commits-for-pull-requests
 
 ### Documentation of the system and group's work
 
