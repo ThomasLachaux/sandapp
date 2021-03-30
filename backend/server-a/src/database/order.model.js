@@ -22,7 +22,15 @@ const orderSchema = new Schema({
     required: true,
   },
   'content.$': {
+    type: Object,
+    required: true,
+  },
+  'content.$.name': {
     type: String,
+    required: true,
+  },
+  'content.$.quantity': {
+    type: Number,
     required: true,
   },
   createdAt: {

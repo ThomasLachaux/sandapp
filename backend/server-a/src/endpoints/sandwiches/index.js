@@ -9,6 +9,6 @@ const router = Router();
 router.get('/', getSandwiches);
 router.get('/:sandwichId', getSandwichById);
 router.post('/', addSandwich);
-router.post('/:sandwichId', updateSandwich);
+router.put('/:sandwichId', updateSandwich);
 
 module.exports = router;

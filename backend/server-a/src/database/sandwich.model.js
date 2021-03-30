@@ -6,6 +6,7 @@ const sandwichSchema = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   toppings: {
     type: Array,
