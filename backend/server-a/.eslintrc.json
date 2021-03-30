@@ -1,0 +1,10 @@
+{
+	"extends": ["plugin:import/errors", "plugin:import/warnings", "prettier", "airbnb-base"],
+	"plugins": ["prettier"],
+	"rules": {
+		"prettier/prettier": ["warn"],
+		"no-console": "off",
+		"no-alert": "error",
+		"linebreak-style": ["warn", "unix"]
+	}
+}
