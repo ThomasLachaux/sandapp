@@ -17,7 +17,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Navbar />
       <Container>
-        <Router>
+        <Router primary={false}>
           <Order path="/" />
           <PastOrders path="/past-orders" />
           <Login path="/login" />
