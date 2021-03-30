@@ -2,8 +2,9 @@ const { Router } = require('express');
 
 const router = Router();
 
-// Orders routes
+router.use('/auth', require('./auth/index'));
 router.use('/orders', require('./orders/index'));
 router.use('/sandwiches', require('./sandwiches/index'));
+router.use('/users', require('./users/index'));
 
 module.exports = router;

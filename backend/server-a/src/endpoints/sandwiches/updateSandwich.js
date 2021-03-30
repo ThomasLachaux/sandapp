@@ -12,6 +12,7 @@ module.exports = [
         // eslint-disable-next-line quote-props
         { $set: { 'name': name, 'toppings': toppings, 'breadType': breadType } }, // eslint-disable-line prettier/prettier
       );
+      // TODO: add notFound
       return res.status(200).json(response);
     } catch (error) {
       return next(error);

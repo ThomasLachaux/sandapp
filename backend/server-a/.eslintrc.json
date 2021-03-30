@@ -5,6 +5,7 @@
 		"prettier/prettier": ["warn"],
 		"no-console": "off",
 		"no-alert": "error",
-		"linebreak-style": ["warn", "unix"]
+		"linebreak-style": ["warn", "unix"],
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
 	}
 }
