@@ -20,7 +20,8 @@
     "jsx-a11y/label-has-associated-control": "off",
     "no-unused-vars": "warn",
     "import/no-named-as-default": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "arrow-body-style": "warn"
   },
   "settings": {
     "react": {

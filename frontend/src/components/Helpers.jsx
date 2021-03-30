@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { theme as globalTheme } from '../utils/style';
 
-export const Title = ({ level = 1, children, className, center }) => {
+export const Title = ({ level = 1, children, className, center, stickedLeft }) => {
   const styles = {
     textTransform: 'uppercase',
     textAlign: center ? 'center' : 'left',
     color: globalTheme.dark,
+    marginLeft: stickedLeft ? 0 : 'inherit',
   };
 
   const Tag = `h${level}`;
@@ -31,9 +32,9 @@ export const Flex = styled.div`
   flex-wrap: wrap;
 
   & > * {
-    margin-left: ${({ direction = 'row', margin = 'inherit' }) => (direction === 'row' ? margin : 'inherit')};
-    margin-right: ${({ direction = 'row', margin = 'inherit' }) => (direction === 'row' ? margin : 'inherit')};
-    margin-top: ${({ direction = 'row', margin = 'inherit' }) => (direction === 'column' ? margin : 'inherit')};
-    margin-bottom: ${({ direction = 'row', margin = 'inherit' }) => (direction === 'column' ? margin : 'inherit')};
+    margin-left: ${({ direction = 'row', margin }) => direction === 'row' && margin};
+    margin-right: ${({ direction = 'row', margin }) => direction === 'row' && margin};
+    margin-top: ${({ direction = 'row', margin }) => direction === 'column' && margin};
+    margin-bottom: ${({ direction = 'row', margin }) => direction === 'column' && margin};
   }
 `;

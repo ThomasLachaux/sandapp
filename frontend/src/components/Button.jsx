@@ -7,10 +7,12 @@ export const Button = styled.button`
   background-color: ${({ theme, primary, disabled }) => (disabled ? '#e0e0e0' : primary ? theme.primary : theme.dark)};
   color: ${({ theme }) => theme.light};
   outline: none;
-  cursor: ${({ disabled }) => (disabled ? 'inherit' : 'pointer')};
+  cursor: ${({ disabled }) => !disabled && 'pointer'};
   border: none;
   padding: 12px 16px;
   transition: 0.15s;
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: center;
 
   &:hover {
