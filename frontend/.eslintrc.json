@@ -13,7 +13,7 @@
     "linebreak-style": ["warn", "unix"],
     "react/require-default-props": "error",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": "off",
     "react/no-unescaped-entities": "off",
     "import/default": "off",
     "react/prop-types": "off",
@@ -21,7 +21,9 @@
     "no-unused-vars": "warn",
     "import/no-named-as-default": "off",
     "import/prefer-default-export": "off",
-    "arrow-body-style": "warn"
+    "arrow-body-style": "warn",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "default-case": "off"
   },
   "settings": {
     "react": {
