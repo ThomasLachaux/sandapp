@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const pick = require('lodash.pick');
 const User = require('../../database/user.model');
-const { created } = require('../../utils/responses');
+const { created, errors } = require('../../utils/responses');
 
 module.exports = [
   async (req, res, next) => {
@@ -9,17 +9,19 @@ module.exports = [
       const { username, password } = req.body;
       // TODO: add Joi validation
       const cipheredPassword = await bcrypt.hash(password, 10);
+      const userCount = await User.count({});
       const newUser = new User({
         username,
         password: cipheredPassword,
-        orders: [],
-        isAdmin: false,
+        isAdmin: userCount === 0 ? true : false,
       });
       await newUser.save();
-      const newUserCallback = pick(newUser, ['username', 'orders', 'isAdmin', '_id']);
+      const newUserCallback = pick(newUser, ['username', 'isAdmin', '_id']);
       return created(res, newUserCallback);
     } catch (error) {
-      // TODO: 409 handler for non-unicity
+      if (error.code === 11000) {
+        error.message = errors.usernameAlreadyExists;
+      }
       return next(error);
     }
   },

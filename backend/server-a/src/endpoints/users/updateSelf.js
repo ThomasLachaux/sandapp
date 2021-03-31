@@ -6,11 +6,10 @@ const { ok, notFound, errors } = require('../../utils/responses');
 module.exports = [
   async (req, res, next) => {
     try {
-      const { userId } = req.params;
+      const { _id } = req.user;
       const { username, password } = req.body;
       // TODO: add Joi validation
-      let response = {};
-      const user = await User.findOne({ _id: userId });
+      const user = await User.findOne({ _id: _id });
       if (!user) {
         return notFound(res, errors.userNotFound);
       }
@@ -22,7 +21,7 @@ module.exports = [
         user.username = username;
       }
       await User.updateOne({ _id: userId }, user);
-      const userCallback = pick(user, ['username', 'orders', 'isAdmin', '_id']);
+      const userCallback = pick(user, ['username', 'isAdmin', '_id']);
       return ok(res, userCallback);
     } catch (error) {
       return next(error);

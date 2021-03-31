@@ -18,7 +18,7 @@ module.exports = [
         return unauthorized(res, errors.wrongCredentials);
       }
       const jwtToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1y' });
-      const loginCallback = pick(user, ['username', 'orders', 'isAdmin', '_id']);
+      const loginCallback = pick(user, ['username', 'isAdmin', '_id']);
       loginCallback.token = jwtToken;
       return ok(res, loginCallback);
     } catch (error) {

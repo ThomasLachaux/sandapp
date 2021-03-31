@@ -1,9 +1,9 @@
 const Sandwich = require('../../database/sandwich.model');
+const { ok } = require('../../utils/responses');
 
 module.exports = [
   async (req, res, next) => {
     try {
-      // TODO: restrict access to admins
       const { sandwichId } = req.params;
       const { name, toppings, breadType } = req.body;
       // TODO: add Joi validation
@@ -12,8 +12,10 @@ module.exports = [
         // eslint-disable-next-line quote-props
         { $set: { 'name': name, 'toppings': toppings, 'breadType': breadType } }, // eslint-disable-line prettier/prettier
       );
-      // TODO: add notFound
-      return res.status(200).json(response);
+      if (!response.modifiedCount === 0) {
+        return notFound(res, errors.sandwichNotFound);
+      }
+      return ok(res, response);
     } catch (error) {
       return next(error);
     }
