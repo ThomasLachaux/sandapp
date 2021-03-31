@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React from 'react';
 import { Flex, Text, Title } from './Helpers';
 import { IconButton } from './Button';
 
@@ -47,35 +47,33 @@ const Quantity = styled.span`
   font-size: 1.5em;
 `;
 
-const SandwichCard = () => {
-  const [quantity, setQuantity] = useState(0);
+const SandwichCard = ({ name, toppings, breadType, onQuantityUpdate, quantity }) => (
+  <RootContainer>
+    <Flex>
+      <Thumbnail src="https://dummyimage.com/300" />
+      <InfoContainer>
+        <div>
+          <SandwichName level={3}>{name}</SandwichName>
+          <Text color="gray">{toppings.join(', ')}</Text>
+          <br />
+          <Text color="gray">{breadType}</Text>
+        </div>
+        <Availibility />
+      </InfoContainer>
+    </Flex>
+    <Flex margin="5px" alignItems="center">
+      <Quantity style={{ visibility: quantity === 0 ? 'hidden' : 'visible' }}>x{quantity}</Quantity>
 
-  return (
-    <RootContainer>
-      <Flex>
-        <Thumbnail src="https://dummyimage.com/300" />
-        <InfoContainer>
-          <div>
-            <SandwichName level={3}>BLT</SandwichName>
-            <Text color="gray">Bacon, Lettuce, Tomato</Text>
-          </div>
-          <Availibility />
-        </InfoContainer>
-      </Flex>
-      <Flex margin="5px" alignItems="center">
-        <Quantity style={{ visibility: quantity === 0 ? 'hidden' : 'visible' }}>x{quantity}</Quantity>
-
-        <IconButton
-          style={{ visibility: quantity === 0 ? 'hidden' : 'visible' }}
-          onClick={() => setQuantity(Math.max(quantity - 1, 0))}>
-          <i className="fa fa-minus" />
-        </IconButton>
-        <IconButton onClick={() => setQuantity(Math.min(quantity + 1, 9))}>
-          <i className="fa fa-plus" />
-        </IconButton>
-      </Flex>
-    </RootContainer>
-  );
-};
+      <IconButton
+        style={{ visibility: quantity === 0 ? 'hidden' : 'visible' }}
+        onClick={() => onQuantityUpdate(Math.max(quantity - 1, 0))}>
+        <i className="fa fa-minus" />
+      </IconButton>
+      <IconButton onClick={() => onQuantityUpdate(Math.min(quantity + 1, 9))}>
+        <i className="fa fa-plus" />
+      </IconButton>
+    </Flex>
+  </RootContainer>
+);
 
 export default SandwichCard;

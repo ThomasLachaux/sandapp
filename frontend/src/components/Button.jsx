@@ -14,6 +14,7 @@ export const Button = styled.button`
   margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : '')};
 
   &:hover {
     color: ${({ theme, disabled }) => (disabled ? theme.light : theme.lightDarken)};

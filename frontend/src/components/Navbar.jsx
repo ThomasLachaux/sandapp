@@ -1,6 +1,11 @@
-import styled from 'styled-components';
-import React from 'react';
+import styled, { css } from 'styled-components';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 import { Link } from '@reach/router';
+import { modalStyle } from '../utils/style';
+import { Flex, Title } from './Helpers';
+import { ModalInput } from './Form';
+import { Button } from './Button';
 
 const Nav = styled.nav`
   width: 100%;
@@ -17,15 +22,23 @@ const NavGroup = styled.div`
   align-items: center;
 `;
 
-const NavItem = styled(Link)`
+const navLinkStyle = css`
   text-transform: uppercase;
   padding: 5px 10px;
   color: ${(props) => props.theme.light};
   border-radius: 20px;
+  cursor: pointer;
 
   &:hover {
     background-color: ${(props) => props.theme.darkLighten};
   }
+`;
+
+const NavItem = styled(Link)`
+  ${navLinkStyle}
+`;
+const NavItemSpan = styled.span`
+  ${navLinkStyle}
 `;
 
 const BrandItem = styled.span`
@@ -36,25 +49,51 @@ const BrandItem = styled.span`
   color: ${(props) => props.theme.light};
 `;
 
-export const Navbar = () => (
-  <Nav>
-    <NavGroup>
-      <Link to="/">
-        <BrandItem>
-          Sand'App <i className="fa fa-hamburger" />
-        </BrandItem>
-      </Link>
+const EditUserModal = ({ isOpen, onRequestClose }) => (
+  <Modal style={modalStyle} isOpen={isOpen} contentLabel="Edit User" onRequestClose={onRequestClose}>
+    <Flex direction="column" alignItems="center" margin="10px">
+      <Title level={3}>Edit user</Title>
+      <ModalInput type="text" placeholder="Username" />
+      <ModalInput type="text" placeholder="Password (not updated if empty)" />
+      <ModalInput type="text" placeholder="Confirm password (not updated if empty)" />
 
-      <NavItem to="/">Get a sandwich</NavItem>
-      <NavItem to="/past-orders">My orders</NavItem>
-      <NavItem to="/admin">Administration panel</NavItem>
-    </NavGroup>
-    <NavGroup>
-      <NavItem to="/login">
-        Thomas <i className="fa fa-user" />
-      </NavItem>
-    </NavGroup>
-  </Nav>
+      <Flex margin="10px">
+        <Button onClick={onRequestClose}>Close</Button>
+        <Button primary>Edit profile</Button>
+      </Flex>
+    </Flex>
+  </Modal>
 );
+
+export const Navbar = () => {
+  const [editModalVisible, setEditModalVisible] = useState(false);
+
+  return (
+    <>
+      <Nav>
+        <NavGroup>
+          <Link to="/">
+            <BrandItem>
+              Sand'App <i className="fa fa-hamburger" />
+            </BrandItem>
+          </Link>
+
+          <NavItem to="/">Get a sandwich</NavItem>
+          <NavItem to="/past-orders">My orders</NavItem>
+          <NavItem to="/admin">Administration panel</NavItem>
+        </NavGroup>
+        <NavGroup>
+          <NavItemSpan onClick={() => setEditModalVisible(true)}>
+            Thomas <i className="fa fa-user" />
+          </NavItemSpan>
+          <NavItem to="/login">
+            Log out <i className="fa fa-sign-out-alt" />
+          </NavItem>
+        </NavGroup>
+      </Nav>
+      <EditUserModal isOpen={editModalVisible} onRequestClose={() => setEditModalVisible(false)} />
+    </>
+  );
+};
 
 export default Navbar;

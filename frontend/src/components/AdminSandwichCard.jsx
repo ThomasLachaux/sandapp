@@ -68,6 +68,7 @@ const AdminSandwichCard = () => {
         isOpen={deleteModalVisible}
         title="Are you sure to delete the $SANDWICH sandwich ?"
         onNo={() => setDeleteModalVisible(false)}
+        onRequestClose={() => setDeleteModalVisible(false)}
       />
     </>
   );
