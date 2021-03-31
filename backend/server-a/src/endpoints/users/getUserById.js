@@ -10,7 +10,7 @@ module.exports = [
       if (!user) {
         return notFound(res, errors.userNotFound);
       }
-      const userCallback = pick(user, ['username', 'orders', 'isAdmin', '_id']);
+      const userCallback = pick(user, ['username', 'isAdmin', '_id']);
       return ok(res, userCallback);
     } catch (error) {
       return next(error);

@@ -1,9 +1,9 @@
 const Sandwich = require('../../database/sandwich.model');
+const { created } = require('../../utils/responses');
 
 module.exports = [
   async (req, res, next) => {
     try {
-      // TODO: restrict access to admins
       const { name, toppings, breadType } = req.body;
       // TODO: add Joi validation
       const newSandwich = new Sandwich({
@@ -12,7 +12,7 @@ module.exports = [
         breadType,
       });
       await newSandwich.save();
-      return res.status(201).json(newSandwich);
+      return created(res, newSandwich);
     } catch (error) {
       return next(error);
     }

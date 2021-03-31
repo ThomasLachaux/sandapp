@@ -1,5 +1,7 @@
 const Order = require('../../database/order.model');
 const nanoid = require('../../utils/nanoid');
+const pick = require('lodash.pick');
+const { created } = require('../../utils/responses');
 
 module.exports = [
   async (req, res, next) => {
@@ -17,7 +19,8 @@ module.exports = [
       });
       await newOrder.save();
       // TODO: send signal to rabbitmq/server B
-      return res.status(201).json(newOrder);
+      const orderCallback = pick(newOrder, ['content', 'madeBy', 'displayId', '_id', 'status', 'createdAt']);
+      return created(res, orderCallback);
     } catch (error) {
       return next(error);
     }

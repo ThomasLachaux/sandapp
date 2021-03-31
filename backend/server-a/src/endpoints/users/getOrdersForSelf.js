@@ -1,10 +1,11 @@
 const Order = require('../../database/order.model');
-const { ok } = require('../../utils/responses');
+const { ok, notFound, errors } = require('../../utils/responses');
 
 module.exports = [
   async (req, res, next) => {
     try {
-      const orders = await Order.find({});
+      const { _id } = req.user;
+      const orders = await Order.find({ madeBy: _id });
       return ok(res, orders);
     } catch (error) {
       return next(error);
