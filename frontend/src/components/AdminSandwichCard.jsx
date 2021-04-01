@@ -12,32 +12,21 @@ const RootContainer = styled.div`
   min-width: 400px;
   width: calc(100% - 20px);
   border: 1px solid #e2e2e2;
+  padding-top: 5px;
+  padding-left: 10px;
+  border-radius: 5px;
 `;
 
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   height: 100px;
-`;
-
-const Thumbnail = styled.img`
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
 `;
 
 const SandwichName = styled(Title)`
   margin: 0px;
 `;
-
-const StyledAvailibility = styled.div`
-  color: ${({ theme, available }) => (available ? theme.green : theme.red)};
-`;
-
-const Availibility = ({ available }) => (
-  <StyledAvailibility available={available}>{available ? 'Available' : 'Not available'}</StyledAvailibility>
-);
 
 const AdminSandwichCard = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -45,22 +34,18 @@ const AdminSandwichCard = () => {
   return (
     <>
       <RootContainer>
-        <Flex>
-          <Thumbnail src="https://dummyimage.com/300" />
-          <InfoContainer>
-            <div>
-              <SandwichName level={3}>BLT</SandwichName>
-              <Text color="gray">Bacon, Lettuce, Tomato</Text>
-            </div>
-            <Availibility />
-          </InfoContainer>
-        </Flex>
+        <InfoContainer>
+          <div>
+            <SandwichName level={2}>BLT</SandwichName>
+            <Text color="gray">Bacon, Lettuce, Tomato</Text>
+          </div>
+        </InfoContainer>
         <Flex margin="5px" alignItems="center">
-          <IconButton onClick={() => setDeleteModalVisible(true)}>
-            <i className="fa fa-minus" />
-          </IconButton>
           <IconButton>
             <i className="fa fa-edit" />
+          </IconButton>
+          <IconButton onClick={() => setDeleteModalVisible(true)}>
+            <i className="fa fa-trash" />
           </IconButton>
         </Flex>
       </RootContainer>

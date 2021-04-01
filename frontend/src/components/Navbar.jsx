@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { Link } from '@reach/router';
+import { useDispatch, useSelector } from 'react-redux';
 import { modalStyle } from '../utils/style';
 import { Flex, Title } from './Helpers';
 import { ModalInput } from './Form';
@@ -67,6 +68,8 @@ const EditUserModal = ({ isOpen, onRequestClose }) => (
 
 export const Navbar = () => {
   const [editModalVisible, setEditModalVisible] = useState(false);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -78,17 +81,25 @@ export const Navbar = () => {
             </BrandItem>
           </Link>
 
-          <NavItem to="/">Get a sandwich</NavItem>
-          <NavItem to="/past-orders">My orders</NavItem>
-          <NavItem to="/admin">Administration panel</NavItem>
+          {user.token && (
+            <>
+              <NavItem to="/">Get a sandwich</NavItem>
+              <NavItem to="/past-orders">My orders</NavItem>
+              <NavItem to="/admin">Administration panel</NavItem>
+            </>
+          )}
         </NavGroup>
         <NavGroup>
-          <NavItemSpan onClick={() => setEditModalVisible(true)}>
-            Thomas <i className="fa fa-user" />
-          </NavItemSpan>
-          <NavItem to="/login">
-            Log out <i className="fa fa-sign-out-alt" />
-          </NavItem>
+          {user.token && (
+            <>
+              <NavItemSpan onClick={() => setEditModalVisible(true)}>
+                {user.username} <i className="fa fa-user" />
+              </NavItemSpan>
+              <NavItemSpan onClick={() => dispatch({ type: 'CLEAR_USER' })}>
+                Log out <i className="fa fa-sign-out-alt" />
+              </NavItemSpan>
+            </>
+          )}
         </NavGroup>
       </Nav>
       <EditUserModal isOpen={editModalVisible} onRequestClose={() => setEditModalVisible(false)} />

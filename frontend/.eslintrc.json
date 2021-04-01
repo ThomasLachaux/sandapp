@@ -23,7 +23,8 @@
     "import/prefer-default-export": "off",
     "arrow-body-style": "warn",
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
-    "default-case": "off"
+    "default-case": "off",
+    "react/no-array-index-key": "off"
   },
   "settings": {
     "react": {

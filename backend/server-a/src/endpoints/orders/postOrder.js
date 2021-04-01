@@ -6,13 +6,13 @@ const { created } = require('../../utils/responses');
 module.exports = [
   async (req, res, next) => {
     try {
-      const { madeBy, content } = req.body;
+      const { content } = req.body;
       // TODO: add Joi validation
       const displayId = nanoid();
       const status = 'pending';
       const newOrder = new Order({
         displayId,
-        madeBy,
+        madeBy: req.user._id,
         content,
         status,
         createdAt: new Date(),

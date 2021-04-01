@@ -11,6 +11,9 @@ const RootContainer = styled.div`
   min-width: 400px;
   width: calc(50% - 40px);
   border: 1px solid #e2e2e2;
+  padding-top: 5px;
+  padding-left: 10px;
+  border-radius: 5px;
 
   @media screen and (max-width: 1000px) {
     width: 100%;
@@ -20,47 +23,29 @@ const RootContainer = styled.div`
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   height: 100px;
-`;
-
-const Thumbnail = styled.img`
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
 `;
 
 const SandwichName = styled(Title)`
   margin: 0px;
 `;
 
-const StyledAvailibility = styled.div`
-  color: ${({ theme, available }) => (available ? theme.green : theme.red)};
-`;
-
-const Availibility = ({ available }) => (
-  <StyledAvailibility available={available}>{available ? 'Available' : 'Not available'}</StyledAvailibility>
-);
-
 const Quantity = styled.span`
   color: ${({ theme }) => theme.primaryLight};
   font-size: 1.5em;
 `;
 
-const SandwichCard = ({ name, toppings, breadType, onQuantityUpdate, quantity }) => (
+const SandwichCard = ({ sandwich, onQuantityUpdate, quantity }) => (
   <RootContainer>
-    <Flex>
-      <Thumbnail src="https://dummyimage.com/300" />
-      <InfoContainer>
-        <div>
-          <SandwichName level={3}>{name}</SandwichName>
-          <Text color="gray">{toppings.join(', ')}</Text>
-          <br />
-          <Text color="gray">{breadType}</Text>
-        </div>
-        <Availibility />
-      </InfoContainer>
-    </Flex>
+    <InfoContainer>
+      <div>
+        <SandwichName level={2}>{sandwich.name}</SandwichName>
+        <Text color="gray">{sandwich.toppings.join(', ')}</Text>
+        <br />
+        <Text color="gray">{sandwich.breadType} bread</Text>
+      </div>
+    </InfoContainer>
     <Flex margin="5px" alignItems="center">
       <Quantity style={{ visibility: quantity === 0 ? 'hidden' : 'visible' }}>x{quantity}</Quantity>
 

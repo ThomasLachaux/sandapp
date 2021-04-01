@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SandwichCard from '../components/SandwichCard';
 import { Flex, Title } from '../components/Helpers';
 import { Button } from '../components/Button';
@@ -25,15 +24,22 @@ const convertBasket = (basket) =>
     .filter(({ quantity }) => quantity !== 0);
 
 export const Home = () => {
-  const sandwiches = useSelector((state) => state.sandwiches);
+  const [sandwiches, setSandwiches] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const [basket, setBasket] = useState({});
+
+  useEffect(() => {
+    api.get('/sandwiches').then((response) => {
+      setSandwiches(response.data);
+      setLoaded(true);
+    });
+  }, []);
 
   const orderSandwich = async () => {
     const content = convertBasket(basket);
 
     await api.post('orders', {
-      madeBy: 'random',
       content,
     });
 
@@ -45,16 +51,16 @@ export const Home = () => {
     <Flex direction="column" alignItems="center">
       <Title center>Sandwiches</Title>
       <RootContainer justifyContent="start">
-        {sandwiches.map((sandwich) => (
-          <SandwichCard
-            key={sandwich._id}
-            name={sandwich.name}
-            toppings={sandwich.toppings}
-            breadType={sandwich.breadType}
-            quantity={basket[sandwich.name] ? basket[sandwich.name] : 0}
-            onQuantityUpdate={(quantity) => setBasket(() => ({ ...basket, [sandwich.name]: quantity }))}
-          />
-        ))}
+        {loaded &&
+          sandwiches.map((sandwich) => (
+            <SandwichCard
+              key={sandwich._id}
+              sandwich={sandwich}
+              quantity={basket[sandwich.name] ? basket[sandwich.name] : 0}
+              onQuantityUpdate={(quantity) => setBasket(() => ({ ...basket, [sandwich.name]: quantity }))}
+            />
+          ))}
+        {loaded && sandwiches.length === 0 && 'There are no sandwiches to order'}
       </RootContainer>
       <OrderButton onClick={orderSandwich} primary disabled={convertBasket(basket).length === 0}>
         Order
