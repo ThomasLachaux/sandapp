@@ -17,9 +17,8 @@ module.exports = [
         req.user = checkedUser;
 
         return next();
-      } else {
-        return unauthorized(res, errors.authenticationError);
       }
+      return unauthorized(res, errors.authenticationError);
     } catch (error) {
       return next(errors.authenticationError);
     }

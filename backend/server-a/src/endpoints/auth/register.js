@@ -13,7 +13,7 @@ module.exports = [
       const newUser = new User({
         username,
         password: cipheredPassword,
-        isAdmin: userCount === 0 ? true : false,
+        isAdmin: userCount === 0,
       });
       await newUser.save();
       const newUserCallback = pick(newUser, ['username', 'isAdmin', '_id']);
