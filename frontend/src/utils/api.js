@@ -8,8 +8,9 @@ const api = axios.create({
 
 api.interceptors.response.use(
   (response) => response,
-  () => {
-    toast.error('An error has occured');
+  (error) => {
+    toast.error(error.response.data.error || 'An error occured');
+    throw error;
   },
 );
 

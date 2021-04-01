@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
 import { Flex, Title, Text } from './Helpers';
 import { IconButton } from './Button';
@@ -11,10 +12,12 @@ const RootContainer = styled.div`
   padding: 15px 10px;
   width: 100%;
   min-width: 400px;
+  border-radius: 5px;
   border: 1px solid #e2e2e2;
 `;
 
 const Status = styled.span`
+  text-transform: capitalize;
   color: ${({ theme, children }) => {
     switch (children.toLowerCase()) {
       case 'delivered':
@@ -29,18 +32,20 @@ const Status = styled.span`
   }};
 `;
 
-const OrderCard = () => {
+const OrderCard = ({ order }) => {
   const [visible, setVisible] = useState(false);
+
+  const totalSandwiches = order.content.reduce((previous, current) => previous + current.quantity, 0);
 
   return (
     <RootContainer>
       <Flex>
         <Flex direction="column">
-          <Title level={4}>Order #543</Title>
+          <Title level={4}>Order #{order.displayId}</Title>
           <span>
             <Text>
-              <Text color="gray">15.03.2021 14:00 · </Text>
-              <Status>Delivered</Status>
+              <Text color="gray">{moment(order.createdAt).format('DD.MM.YYYY HH.mm')} · </Text>
+              <Status>{order.status}</Status>
             </Text>
           </span>
         </Flex>
@@ -49,13 +54,15 @@ const OrderCard = () => {
         </IconButton>
       </Flex>
       <Title level={3} stickedLeft>
-        3 sandwiches
+        {totalSandwiches} sandwich{totalSandwiches !== 1 && 'es'}
       </Title>
       {visible && (
         <>
-          <Text>1 BLT</Text>
-          <Text>1 BLT</Text>
-          <Text>1 BLT</Text>
+          {order.content.map((sandwich) => (
+            <Text key={sandwich.name}>
+              {sandwich.quantity} {sandwich.name}
+            </Text>
+          ))}
         </>
       )}
     </RootContainer>

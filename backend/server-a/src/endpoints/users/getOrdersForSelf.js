@@ -4,6 +4,7 @@ const { ok, notFound, errors } = require('../../utils/responses');
 module.exports = [
   async (req, res, next) => {
     try {
+      // TODO: filter
       const { _id } = req.user;
       const orders = await Order.find({ madeBy: _id });
       return ok(res, orders);

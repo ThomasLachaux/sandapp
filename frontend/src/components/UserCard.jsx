@@ -10,10 +10,11 @@ const RootContainer = styled.div`
   width: 100%;
   border: 1px solid #e2e2e2;
   padding: 10px 15px;
+  border-radius: 5px;
 `;
 
 const UserCard = ({ key }) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   return (
     <RootContainer>
