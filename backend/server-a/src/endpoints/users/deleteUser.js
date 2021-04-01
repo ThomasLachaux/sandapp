@@ -13,9 +13,8 @@ module.exports = [
           return notFound(res, errors.userNotFound);
         }
         return ok(res, user);
-      } else {
-        return forbidden(res, errors.cannotDeleteSelf);
       }
+      return forbidden(res, errors.cannotDeleteSelf);
     } catch (error) {
       return next(error);
     }

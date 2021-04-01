@@ -9,7 +9,7 @@ module.exports = [
       const { _id } = req.user;
       const { username, password } = req.body;
       // TODO: add Joi validation
-      const user = await User.findOne({ _id: _id });
+      const user = await User.findOne({ _id });
       if (!user) {
         return notFound(res, errors.userNotFound);
       }

@@ -1,6 +1,6 @@
+const pick = require('lodash.pick');
 const Order = require('../../database/order.model');
 const nanoid = require('../../utils/nanoid');
-const pick = require('lodash.pick');
 const { created } = require('../../utils/responses');
 
 module.exports = [
