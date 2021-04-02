@@ -4,7 +4,7 @@ info:
   description: |
     Server A API for Make Me a Sandwich app in Web Development 2 - Architecting.
     Authentication is made with JWT.
-  version: "1.0.0"
+  version: '1.0.0'
   title: Sand'App
   contact:
     email: xavier.finkelstein@tuni.fi
@@ -86,7 +86,7 @@ paths:
       summary: Get all orders (administrators only)
       operationId: getOrders
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         200:
           description: 'OK'
@@ -102,7 +102,7 @@ paths:
       summary: Send an order
       operationId: postOrder
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -144,7 +144,7 @@ paths:
             type: string
             format: MongoDB ObjectId
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         200:
           description: 'OK'
@@ -161,7 +161,7 @@ paths:
       summary: Get all sandwiches
       operationId: getSandwiches
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         '200':
           description: successful operation
@@ -177,7 +177,7 @@ paths:
       summary: Add a sandwich (administrators only)
       operationId: addSandwich
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -217,7 +217,7 @@ paths:
             type: string
             format: MongoDB ObjectId
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         200:
           description: 'OK'
@@ -241,7 +241,7 @@ paths:
             type: string
             format: MongoDB ObjectId
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -282,7 +282,7 @@ paths:
             type: string
             format: MongoDB ObjectId
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         200:
           description: 'OK'
@@ -299,7 +299,7 @@ paths:
       summary: Get all users (administrators only)
       operationId: getUsers
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         '200':
           description: successful operation
@@ -317,7 +317,7 @@ paths:
       description: Current user ID is based on JWT.
       operationId: getSelf
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         200:
           description: 'OK'
@@ -334,7 +334,7 @@ paths:
       description: Current user ID is based on JWT.
       operationId: updateSelf
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -363,7 +363,7 @@ paths:
       description: Current user ID is based on JWT.
       operationId: getOrdersForSelf
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         200:
           description: 'OK'
@@ -390,7 +390,7 @@ paths:
             type: string
             format: MongoDB ObjectId
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         200:
           description: 'OK'
@@ -400,30 +400,6 @@ paths:
                 $ref: '#/components/schemas/User'
         '404':
           description: Sandwich not found
-    patch:
-      tags:
-        - users
-      summary: Set or unset a user as admin (administrators only)
-      operationId: setUserAsAdmin
-      parameters:
-        - name: userId
-          in: path
-          description: ID of user to set as admin
-          required: true
-          schema:
-            type: string
-            format: MongoDB ObjectId
-      security:
-      - BearerAuth: []
-      responses:
-        200:
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '404':
-          description: User not found
     delete:
       tags:
         - users
@@ -438,10 +414,35 @@ paths:
             type: string
             format: MongoDB ObjectId
       security:
-      - BearerAuth: []
+        - BearerAuth: []
       responses:
         200:
           description: 'OK'
+        '404':
+          description: User not found
+  '/users/{userId}/admin':
+    patch:
+      tags:
+        - users
+      summary: Set or unset a user as admin (administrators only)
+      operationId: switchUserAsAdmin
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to set/unset as admin
+          required: true
+          schema:
+            type: string
+            format: MongoDB ObjectId
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         '404':
           description: User not found
 externalDocs:
@@ -482,7 +483,7 @@ components:
             properties:
               name:
                 type: string
-                example: "Sandwich"
+                example: 'Sandwich'
               quantity:
                 type: integer
                 example: 1

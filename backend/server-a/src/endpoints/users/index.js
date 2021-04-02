@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const getUsers = require('./getUsers');
 const getUserById = require('./getUserById');
-const setUserAsAdmin = require('./setUserAsAdmin');
+const switchUserAsAdmin = require('./switchUserAsAdmin');
 const getSelf = require('./getSelf');
 const updateSelf = require('./updateSelf');
 const deleteUser = require('./deleteUser');
@@ -15,7 +15,7 @@ router.get('/me', getSelf);
 router.get('/:userId', ensureAdmin, getUserById);
 router.get('/me/orders', getOrdersForSelf);
 router.patch('/me', updateSelf);
-router.patch('/:userId', ensureAdmin, setUserAsAdmin);
+router.patch('/:userId/admin', ensureAdmin, switchUserAsAdmin);
 router.delete('/:userId', ensureAdmin, deleteUser);
 
 module.exports = router;
