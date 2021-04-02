@@ -13,7 +13,7 @@ module.exports = [
         if (!user) {
           return notFound(res, errors.userNotFound);
         }
-        user.isAdmin = true;
+        user.isAdmin = !user.isAdmin;
         await User.updateOne({ _id: userId }, user);
         const userCallback = pick(user, ['username', 'isAdmin', '_id']);
         return ok(res, userCallback);
