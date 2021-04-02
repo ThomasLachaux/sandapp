@@ -2,6 +2,8 @@
 // Post a new task to the work queue
 // in our case an order for a sandwich
 
+/*
+
 const amqp = require('amqplib');
 
 module.exports.addTask = function (rabbitHost, queueName, order) {
@@ -14,3 +16,5 @@ module.exports.addTask = function (rabbitHost, queueName, order) {
     });
   });
 };
+
+*/

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // Process tasks from the work queue
+/*
 
 const amqp = require('amqplib');
 
@@ -35,3 +36,4 @@ module.exports.getTask = function (rabbitHost, queueName) {
     })
     .catch(console.warn);
 };
+*/

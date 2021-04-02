@@ -7,7 +7,7 @@ module.exports = [
       const { userId } = req.params;
       const requestingUserId = req.user._id;
       // TODO: add Joi validation
-      if (userId != requestingUserId) {
+      if (userId !== requestingUserId) {
         const user = await User.deleteOne({ _id: userId });
         if (user.deletedCount === 0) {
           return notFound(res, errors.userNotFound);

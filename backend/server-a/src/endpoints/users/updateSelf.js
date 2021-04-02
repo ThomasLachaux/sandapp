@@ -20,7 +20,7 @@ module.exports = [
       if (username) {
         user.username = username;
       }
-      await User.updateOne({ _id: userId }, user);
+      await User.updateOne({ _id }, user);
       const userCallback = pick(user, ['username', 'isAdmin', '_id']);
       return ok(res, userCallback);
     } catch (error) {
