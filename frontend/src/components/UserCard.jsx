@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import api from '../utils/api';
-import { Button, IconButton } from './Button';
+import { IconButton } from './Button';
 import { Flex, Title, Text, ButtonLink } from './Helpers';
 import ConfirmModal from './ConfirmModal';
 
@@ -33,7 +33,7 @@ const UserCard = ({ user, orders, onDelete, onPromote }) => {
   const promoteUser = () => {
     setPromoteModalLoading(true);
     api
-      .get(`users/${user._id}`)
+      .patch(`users/${user._id}/admin`)
       .then(() => {
         toast.success(`The user ${user.username} rights have changed`);
         setPromoteModalLoading(false);
