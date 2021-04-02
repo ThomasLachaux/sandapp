@@ -1,12 +1,16 @@
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import styled, { css } from 'styled-components';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Modal from 'react-modal';
 import { Link } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { modalStyle } from '../utils/style';
-import { Flex, Title } from './Helpers';
+import { Flex, Text, Title } from './Helpers';
 import { ModalInput } from './Form';
 import { Button } from './Button';
+import api from '../utils/api';
+import { loadUser } from '../reducers/user';
 
 const Nav = styled.nav`
   width: 100%;
@@ -50,21 +54,78 @@ const BrandItem = styled.span`
   color: ${(props) => props.theme.light};
 `;
 
-const EditUserModal = ({ isOpen, onRequestClose }) => (
-  <Modal style={modalStyle} isOpen={isOpen} contentLabel="Edit User" onRequestClose={onRequestClose}>
-    <Flex direction="column" alignItems="center" margin="10px">
-      <Title level={3}>Edit user</Title>
-      <ModalInput type="text" placeholder="Username" />
-      <ModalInput type="text" placeholder="Password (not updated if empty)" />
-      <ModalInput type="text" placeholder="Confirm password (not updated if empty)" />
+const EditUserModal = ({ isOpen, onRequestClose }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-      <Flex margin="10px">
-        <Button onClick={onRequestClose}>Close</Button>
-        <Button primary>Edit profile</Button>
-      </Flex>
-    </Flex>
-  </Modal>
-);
+  const { register, handleSubmit, errors, watch, reset } = useForm({
+    defaultValues: {
+      username: user.username,
+    },
+  });
+
+  const password = useRef({});
+  password.current = watch('password', '');
+
+  const onSubmit = async (data) => {
+    const body = data.password
+      ? {
+          username: data.username,
+          password: data.password,
+        }
+      : { username: data.username };
+
+    const response = await api.patch('/users/me', body);
+
+    toast.success('You have been correctly updated !');
+
+    loadUser(dispatch, response.data, user.token);
+    reset({ username: response.data.username });
+
+    onRequestClose();
+  };
+
+  return (
+    <Modal style={modalStyle} isOpen={isOpen} contentLabel="Edit User" onRequestClose={onRequestClose}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Flex direction="column" alignItems="center" margin="10px">
+          <Title level={3}>Edit user</Title>
+          <Text color="red">
+            {Object.values(errors).map((error, index) => (
+              <div key={index}>{error.message}</div>
+            ))}
+          </Text>
+          <ModalInput
+            type="text"
+            placeholder="Username"
+            name="username"
+            ref={register({
+              required: 'Please enter a username',
+            })}
+          />
+          <ModalInput type="password" placeholder="Password (not updated if empty)" name="password" ref={register} />
+          <ModalInput
+            type="password"
+            placeholder="Confirm password (not updated if empty)"
+            name="confirmPassword"
+            ref={register({
+              validate: (value) => value === password.current || 'The passwords do not match',
+            })}
+          />
+
+          <Flex margin="10px">
+            <Button onClick={onRequestClose} type="button">
+              Close
+            </Button>
+            <Button primary type="submit">
+              Edit profile
+            </Button>
+          </Flex>
+        </Flex>
+      </form>
+    </Modal>
+  );
+};
 
 export const Navbar = () => {
   const [editModalVisible, setEditModalVisible] = useState(false);
@@ -85,7 +146,7 @@ export const Navbar = () => {
             <>
               <NavItem to="/">Get a sandwich</NavItem>
               <NavItem to="/past-orders">My orders</NavItem>
-              <NavItem to="/admin">Administration panel</NavItem>
+              {user.isAdmin && <NavItem to="/admin">Administration panel</NavItem>}
             </>
           )}
         </NavGroup>
@@ -102,7 +163,7 @@ export const Navbar = () => {
           )}
         </NavGroup>
       </Nav>
-      <EditUserModal isOpen={editModalVisible} onRequestClose={() => setEditModalVisible(false)} />
+      {user.token && <EditUserModal isOpen={editModalVisible} onRequestClose={() => setEditModalVisible(false)} />}
     </>
   );
 };

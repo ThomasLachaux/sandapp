@@ -13,7 +13,7 @@ module.exports = [
       if (!user) {
         return unauthorized(res, errors.wrongCredentials);
       }
-      const passwordVerification = bcrypt.compare(password, user.password);
+      const passwordVerification = await bcrypt.compare(password, user.password);
       if (!passwordVerification) {
         return unauthorized(res, errors.wrongCredentials);
       }

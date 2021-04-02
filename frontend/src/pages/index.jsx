@@ -40,7 +40,8 @@ const Router = () => {
           <>
             <Order path="/" />
             <PastOrders path="/past-orders" />
-            <Admin path="/admin" />
+            {user.isAdmin && <Admin path="/admin" />}
+
             <Redirect default from="/" to="/" noThrow />
           </>
         ) : (

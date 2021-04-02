@@ -38,3 +38,13 @@ export const Flex = styled.div`
     margin-bottom: ${({ direction = 'row', margin }) => direction === 'column' && margin};
   }
 `;
+
+export const ButtonLink = styled.a`
+  color: ${({ theme, color }) => theme[color || 'primary']};
+  cursor: pointer;
+  padding-top: 5px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
