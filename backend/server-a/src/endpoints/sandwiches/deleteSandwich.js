@@ -10,7 +10,7 @@ module.exports = [
       if (sandwich.deletedCount === 0) {
         return notFound(res, errors.userNotFound);
       }
-      return ok(res, user);
+      return ok(res, sandwich);
     } catch (error) {
       return next(error);
     }

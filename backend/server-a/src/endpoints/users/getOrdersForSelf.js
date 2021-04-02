@@ -1,5 +1,5 @@
 const Order = require('../../database/order.model');
-const { ok, notFound, errors } = require('../../utils/responses');
+const { ok } = require('../../utils/responses');
 
 module.exports = [
   async (req, res, next) => {

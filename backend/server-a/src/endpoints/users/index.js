@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const getUsers = require('./getUsers');
 const getUserById = require('./getUserById');
 const setUserAsAdmin = require('./setUserAsAdmin');
 const getSelf = require('./getSelf');
@@ -9,6 +10,7 @@ const ensureAdmin = require('../../middlewares/ensureAdmin');
 
 const router = Router();
 
+router.get('/', ensureAdmin, getUsers);
 router.get('/me', getSelf);
 router.get('/:userId', ensureAdmin, getUserById);
 router.get('/me/orders', getOrdersForSelf);
