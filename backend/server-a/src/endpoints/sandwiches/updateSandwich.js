@@ -8,7 +8,7 @@ module.exports = [
       const { name, toppings, breadType } = req.body;
       // TODO: add Joi validation
       const response = await Sandwich.updateOne({ _id: sandwichId }, { $set: { name, toppings, breadType } });
-      if (response.modifiedCount !== 0) {
+      if (response.modifiedCount === 0) {
         return notFound(res, errors.sandwichNotFound);
       }
       return ok(res, response);

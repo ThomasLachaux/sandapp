@@ -14,8 +14,8 @@ router.get('/', ensureAdmin, getUsers);
 router.get('/me', getSelf);
 router.get('/:userId', ensureAdmin, getUserById);
 router.get('/me/orders', getOrdersForSelf);
-router.patch('/:userId', ensureAdmin, setUserAsAdmin);
 router.patch('/me', updateSelf);
+router.patch('/:userId', ensureAdmin, setUserAsAdmin);
 router.delete('/:userId', ensureAdmin, deleteUser);
 
 module.exports = router;
