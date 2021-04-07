@@ -1,4 +1,4 @@
-version: "3"
+version: "3.1"
 
 services:
   frontend:
@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
       context: ./frontend
       args:
-        VITE_API_URL: "http://localhost:3000"
+        VITE_API_URL: "http://tie-webarc-1.it.tuni.fi:3000"
     restart: always
     ports:
       - "8080:8080"
@@ -70,39 +70,9 @@ services:
       - rabbitmq
     volumes:
       - rabbitmq_data:/bitnami
-  # You can base this service on the rabbitmq:3-management Docker Hub image.
-  # You need to expose the RabbitMQ port 5672 to other containers
-  # in this  docker-compose.yml, and for the managent from a Web
-  # server you needs to make the map the RabbitMQ container port
-  # 15672 to host port you wish to use for this.
-  # A set of needed Docker instructions like 'image:' are shown
-  # below, groups should set their values. Groups are free to
-  # CRUD the set of instructions as they see fit.
-  # rapid-runner-rabbit:
-  #   image: rabbitmq:3-management
-  #   ports:
-  #   expose:
-  #   networks:
-
-  # much of the server-b service entry can be copied from server-a
-  # service above. server-b directory Dockerfile has more
-  # information.
-  # A set of needed Docker instructions like 'image:' are shown
-  # below, groups should set their values. Groups are free to
-  # CRUD this set of instructions as they see fit.
-  # server-b:
-  # image:
-  # depends_on:
-  # command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
-  # build:
-  #   dockerfile:
-  #   context:
-  # expose:
-  # networks:
 
 networks:
   front:
-    name: front
     driver: bridge
   mongodb:
     internal: true

@@ -1,5 +1,7 @@
 FROM node:15-alpine
 
+ENV NODE_ENV=production
+
 ARG VITE_API_URL
 
 WORKDIR /opt/app
@@ -12,6 +14,7 @@ COPY . .
 
 EXPOSE 8080
 
-RUN yarn build
+# We reduce the log level because the docker compose version does not support UTF-8 chars that vite displays
+RUN yarn build --logLevel warn
 
 CMD yarn serve
