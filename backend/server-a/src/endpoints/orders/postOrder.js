@@ -2,6 +2,7 @@ const pick = require('lodash.pick');
 const Order = require('../../database/order.model');
 const nanoid = require('../../utils/nanoid');
 const { created } = require('../../utils/responses');
+const orderHandler = require('../../utils/orderHandler');
 
 module.exports = [
   async (req, res, next) => {
@@ -9,7 +10,7 @@ module.exports = [
       const { content } = req.body;
       // TODO: add Joi validation
       const displayId = nanoid();
-      const status = 'pending';
+      const status = 'received';
       const newOrder = new Order({
         displayId,
         madeBy: req.user._id,
@@ -18,9 +19,9 @@ module.exports = [
         createdAt: new Date(),
       });
       await newOrder.save();
-      // TODO: send signal to rabbitmq/server B
-      const orderCallback = pick(newOrder, ['content', 'madeBy', 'displayId', '_id', 'status', 'createdAt']);
-      return created(res, orderCallback);
+      const order = pick(newOrder, ['content', 'madeBy', 'displayId', '_id', 'status', 'createdAt']);
+      await orderHandler.sendToQueue(order);
+      return created(res, order);
     } catch (error) {
       return next(error);
     }

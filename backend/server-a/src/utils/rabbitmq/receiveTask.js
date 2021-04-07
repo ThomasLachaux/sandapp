@@ -13,7 +13,6 @@ module.exports.startConsumer = async (connectionUrl, queueName, callback) => {
     await channel.assertQueue(queueName, { durable: true });
     await channel.prefetch(1);
     await channel.consume(queueName, (msg) => callback(msg, channel), { noAck: false });
-    console.log(new Date(), ' [*] Waiting for messages. To exit press CTRL+C');
   } catch (error) {
     console.log(error);
   }

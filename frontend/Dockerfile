@@ -1,5 +1,7 @@
 FROM node:15-alpine
 
+ARG VITE_API_URL
+
 WORKDIR /opt/app
 
 COPY package.json yarn.lock ./
