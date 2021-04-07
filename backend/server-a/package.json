@@ -4,11 +4,13 @@
   "main": "src/app.js",
   "license": "MIT",
   "scripts": {
+    "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "lint": "eslint src/ --ext .js",
     "lint:fix": "eslint src/ --fix --ext .js"
   },
   "dependencies": {
+    "amqplib": "^0.7.1",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

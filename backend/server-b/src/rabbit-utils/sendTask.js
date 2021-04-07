@@ -1,10 +1,10 @@
-const amqp = require('amqplib');
+const { connect } = require('./connect');
 
 let channel = null;
 
 module.exports.startPublisher = async (connectionUrl) => {
   try {
-    const connection = await amqp.connect(connectionUrl);
+    const connection = await connect(connectionUrl);
     channel = await connection.createConfirmChannel();
 
     process.once('SIGINT', () => {
@@ -16,9 +16,14 @@ module.exports.startPublisher = async (connectionUrl) => {
   }
 };
 
-module.exports.send = (queueName, content) => {
-  channel.sendToQueue(queueName, content, { persistent: true }, (err, ok) => {
-    if (err !== null) console.warn(new Date(), 'Message nacked!');
-    else console.log(new Date(), 'Message acked');
-  });
+module.exports.send = async (queueName, content) => {
+  try {
+    await channel.assertQueue(queueName, { durable: true });
+    channel.sendToQueue(queueName, content, { persistent: true }, (err, ok) => {
+      if (err !== null) console.warn(new Date(), 'Message nacked!');
+      else console.log(new Date(), 'Message acked');
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
