@@ -1,5 +1,7 @@
 FROM node:15-alpine
 
+ENV NODE_ENV=production
+
 WORKDIR /opt/app
 
 COPY package.json yarn.lock ./
