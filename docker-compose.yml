@@ -51,7 +51,8 @@ services:
 
   mongodb:
     container_name: mongodb
-    image: "bitnami/mongodb:4.4"
+    # The registry is precised because the VM config previledges the RedHat registries before
+    image: "docker.io/bitnami/mongodb:4.4"
     environment:
       MONGODB_ROOT_PASSWORD: "root" # example value, change it.
       MONGODB_USERNAME: "username" # example value, change it.
@@ -61,8 +62,10 @@ services:
       - "mongodb_data:/bitnami/mongodb"
     networks:
       - mongodb
+
   rabbitmq:
-    image: "bitnami/rabbitmq:latest"
+    container_name: rabbitmq
+    image: "docker.io/bitnami/rabbitmq:latest"
     environment:
       - RABBITMQ_USERNAME=username # example value, change it.
       - RABBITMQ_PASSWORD=password # example value, change it.
