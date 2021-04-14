@@ -5,7 +5,6 @@ module.exports = [
   async (req, res, next) => {
     try {
       const { name, toppings, breadType } = req.body;
-      // TODO: add Joi validation
       const newSandwich = new Sandwich({
         name,
         toppings,

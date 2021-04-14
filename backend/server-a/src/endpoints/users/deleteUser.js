@@ -4,9 +4,8 @@ const { ok, notFound, forbidden, errors } = require('../../utils/responses');
 module.exports = [
   async (req, res, next) => {
     try {
-      const { userId } = req.params;
+      const { id: userId } = req.params;
       const requestingUserId = req.user._id;
-      // TODO: add Joi validation
       if (userId !== requestingUserId) {
         const user = await User.deleteOne({ _id: userId });
         if (user.deletedCount === 0) {

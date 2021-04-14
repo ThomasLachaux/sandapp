@@ -8,7 +8,6 @@ module.exports = [
   async (req, res, next) => {
     try {
       const { username, password } = req.body;
-      // TODO: add Joi validation
       const user = await User.findOne({ username });
       if (!user) {
         return unauthorized(res, errors.wrongCredentials);
