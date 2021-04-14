@@ -8,7 +8,6 @@ module.exports = [
   async (req, res, next) => {
     try {
       const { content } = req.body;
-      // TODO: add Joi validation
       const displayId = nanoid();
       const status = 'received';
       const newOrder = new Order({

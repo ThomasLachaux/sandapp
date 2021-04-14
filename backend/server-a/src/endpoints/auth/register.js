@@ -7,7 +7,6 @@ module.exports = [
   async (req, res, next) => {
     try {
       const { username, password } = req.body;
-      // TODO: add Joi validation
       const cipheredPassword = await bcrypt.hash(password, 10);
       const userCount = await User.count({});
       const newUser = new User({
