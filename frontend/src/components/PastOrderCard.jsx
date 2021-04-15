@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import startCase from 'lodash.startcase';
 import moment from 'moment';
 import styled from 'styled-components';
 import { Flex, Title, Text } from './Helpers';
@@ -20,10 +21,11 @@ const Status = styled.span`
   text-transform: capitalize;
   color: ${({ theme, children }) => {
     switch (children.toLowerCase()) {
-      case 'delivered':
+      case 'ready':
         return theme.green;
 
-      case 'pending':
+      case 'in queue':
+      case 'received':
         return theme.orange;
 
       default:
@@ -45,7 +47,7 @@ const OrderCard = ({ order }) => {
           <span>
             <Text>
               <Text color="gray">{moment(order.createdAt).format('DD.MM.YYYY HH.mm')} · </Text>
-              <Status>{order.status}</Status>
+              <Status>{startCase(order.status)}</Status>
             </Text>
           </span>
         </Flex>

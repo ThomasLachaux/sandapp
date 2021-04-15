@@ -48,7 +48,7 @@ const UpdateModal = ({ isOpen, onRequestClose, sandwich, loading, setLoading, on
     api
       .put(`sandwiches/${sandwich._id}`, {
         name: data.name,
-        toppings: data.toppings.split(','),
+        toppings: data.toppings.split(',').map((string) => string.trim()),
         breadType: data.breadType,
       })
       .then(() => {
@@ -75,9 +75,12 @@ const UpdateModal = ({ isOpen, onRequestClose, sandwich, loading, setLoading, on
           <ModalInput type="text" placeholder="Name" name="name" ref={register({ required: 'Please enter a name' })} />
           <ModalInput
             type="text"
-            placeholder="Toppings (separated with comma)"
+            placeholder="Toppings (separated with commas)"
             name="toppings"
-            ref={register({ required: 'Please enter toppings' })}
+            ref={register({
+              required: 'Please enter toppings',
+              pattern: { value: /^([\w ]+,)+[\w ]+\w$/, message: 'Please enter toppings separated with commas' },
+            })}
           />
           <ModalInput
             type="text"
