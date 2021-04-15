@@ -6,7 +6,7 @@ module.exports = [
     try {
       // TODO: filter
       const { _id } = req.user;
-      const orders = await Order.find({ madeBy: _id });
+      const orders = await Order.find({ madeBy: _id }).sort({ createdAt: 'desc' });
       return ok(res, orders);
     } catch (error) {
       return next(error);
