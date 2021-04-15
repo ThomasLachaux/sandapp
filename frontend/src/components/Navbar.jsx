@@ -46,6 +46,10 @@ const NavItemSpan = styled.span`
   ${navLinkStyle}
 `;
 
+const NavItemA = styled.a`
+  ${navLinkStyle}
+`;
+
 const BrandItem = styled.span`
   text-transform: uppercase;
   padding: 5px 10px;
@@ -146,7 +150,14 @@ export const Navbar = () => {
             <>
               <NavItem to="/">Get a sandwich</NavItem>
               <NavItem to="/past-orders">My orders</NavItem>
-              {user.isAdmin && <NavItem to="/admin">Administration panel</NavItem>}
+              {user.isAdmin && (
+                <>
+                  <NavItem to="/admin">Administration panel</NavItem>
+                  <NavItemA href={`${import.meta.env.VITE_API_URL}/docs`} target="_blank">
+                    Api documentation
+                  </NavItemA>
+                </>
+              )}
             </>
           )}
         </NavGroup>

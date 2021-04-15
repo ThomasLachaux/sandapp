@@ -36,7 +36,9 @@ export const Home = () => {
     });
   }, []);
 
+  const [orderSandwichLoading, setOrderSandwichLoading] = useState(false);
   const orderSandwich = async () => {
+    setOrderSandwichLoading(true);
     const content = convertBasket(basket);
 
     await api.post('orders', {
@@ -45,11 +47,12 @@ export const Home = () => {
 
     toast.success('The order was successfully queued');
     setBasket({});
+    setOrderSandwichLoading(false);
   };
 
   return (
     <Flex direction="column" alignItems="center">
-      <Title center>Sandwiches</Title>
+      <Title center>Sandwiches 🥪</Title>
       <RootContainer justifyContent="start">
         {loaded &&
           sandwiches.map((sandwich) => (
@@ -62,8 +65,11 @@ export const Home = () => {
           ))}
         {loaded && sandwiches.length === 0 && 'There are no sandwiches to order'}
       </RootContainer>
-      <OrderButton onClick={orderSandwich} primary disabled={convertBasket(basket).length === 0}>
-        Order
+      <OrderButton
+        onClick={orderSandwich}
+        primary
+        disabled={convertBasket(basket).length === 0 || orderSandwichLoading}>
+        Order {convertBasket(basket).length === 0 || orderSandwichLoading || '🚀'}
       </OrderButton>
     </Flex>
   );

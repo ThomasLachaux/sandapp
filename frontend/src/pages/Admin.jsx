@@ -24,7 +24,7 @@ const AddModal = ({ isOpen, onRequestClose, loading, setLoading, onAdd }) => {
     api
       .post(`sandwiches`, {
         name: data.name,
-        toppings: data.toppings.split(','),
+        toppings: data.toppings.split(',').map((string) => string.trim()),
         breadType: data.breadType,
       })
       .then((response) => {
@@ -53,7 +53,10 @@ const AddModal = ({ isOpen, onRequestClose, loading, setLoading, onAdd }) => {
             type="text"
             placeholder="Toppings (separated with comma)"
             name="toppings"
-            ref={register({ required: 'Please enter toppings' })}
+            ref={register({
+              required: 'Please enter toppings',
+              pattern: { value: /^([\w ]+,)+[\w ]+\w$/, message: 'Please enter toppings separated with commas' },
+            })}
           />
           <ModalInput
             type="text"
@@ -95,7 +98,7 @@ const UsersContainer = () => {
 
   return (
     <SubContainer direction="column">
-      <Title stickedLeft>Users</Title>
+      <Title stickedLeft>Users 🤵</Title>
       {loaded &&
         users.map((user) => (
           <UserCard
@@ -133,7 +136,7 @@ const SandwichesContainer = () => {
   return (
     <>
       <SubContainer direction="column">
-        <Title stickedLeft>Sandwiches</Title>
+        <Title stickedLeft>Sandwiches 🥪</Title>
         {loaded &&
           sandwiches.map((sandwich) => (
             <AdminSandwichCard

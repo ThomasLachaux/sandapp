@@ -25,7 +25,7 @@ const Orders = () => {
 
   return (
     <Flex direction="column" alignItems="center">
-      <Title center>Your orders</Title>
+      <Title center>My orders 🧾</Title>
       <OrdersContainer justifyContent="start">
         {loaded && orders.map((order) => <PastOrderCard key={order._id} order={order} />)}
         {loaded && orders.length === 0 && "You haven't made an order yet"}
